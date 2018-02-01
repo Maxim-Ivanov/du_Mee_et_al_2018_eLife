@@ -9,7 +9,8 @@
 # Output: Granges object with additional metadata columns
 # containing the integrated signal;
 
-getOverlappingScores <- function(intervals, signal_grl, trim.names=c(0, 0)) {
+getOverlappingScores <- function(intervals, signal_grl, \
+trim.names=c(0, 0)) {
   require(GenomicRanges)
   before <- trim.names[[1]]; after <- trim.names[[2]]
   for (i in seq_along(signal_grl)) {
@@ -20,8 +21,10 @@ getOverlappingScores <- function(intervals, signal_grl, trim.names=c(0, 0)) {
     hits <- findOverlaps(intervals, signal)
     query <- intervals[queryHits(hits)]
     subject <- signal[subjectHits(hits)]
-    trimmed <- restrict(subject, start(query), end(query), keep.all.ranges=TRUE)
-    by_obj <- by(trimmed, list(queryHits(hits)), function(x) { sum(width(x) * score(x)) })
+    trimmed <- restrict(subject, start(query), end(query), \
+keep.all.ranges=TRUE)
+    by_obj <- by(trimmed, list(queryHits(hits)), \
+function(x) { sum(width(x) * score(x)) })
     res <- t(do.call(rbind, list(by_obj)))
     out <- matrix(nrow=length(intervals), ncol=1, data=0)
     out[as.numeric(rownames(res))] <- res[, 1]

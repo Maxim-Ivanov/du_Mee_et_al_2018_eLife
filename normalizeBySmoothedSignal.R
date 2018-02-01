@@ -6,7 +6,8 @@
 # default;
 # The shift.start argument is used to avoid zero-width intervals;
 
-normalizeBySmoothedSignal <- function(gr1, gr2, pscount=0.1, window=51, shift.start=1, round.precision=3, tpm.norm=TRUE) {
+normalizeBySmoothedSignal <- function(gr1, gr2, pscount=0.1, \
+window=51, shift.start=1, round.precision=3, tpm.norm=TRUE) {
   rle1 <- mcolAsRleList(gr1, "score")
   rle2 <- mcolAsRleList(gr2, "score")
   rle2[is.na(rle2)] <- 0

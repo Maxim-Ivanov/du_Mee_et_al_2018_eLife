@@ -1,4 +1,5 @@
-# This script extracts the coverage of PAR-CLIP conversion events from the VarScan output VCF files;
+# This script extracts the coverage of PAR-CLIP conversion events
+# from the VarScan output VCF files;
 
 import os, sys
 from operator import itemgetter
@@ -13,7 +14,8 @@ for vcf_filename in vcf_filenames:
                 if line.startswith('#'):
                     continue
                 fields = line.rstrip('\n').split('\t')
-                chrom, start, nucl, subst, info = fields[0], int(fields[1]), fields[3], fields[4], fields[8].split(':')
+                chrom, start, nucl, subst, info = fields[0], \
+int(fields[1]), fields[3], fields[4], fields[8].split(':')
                 if nucl == 'T' and subst == 'C':
                     strand = 'fw'
                 elif nucl == 'A' and subst == 'G':
@@ -21,7 +23,7 @@ for vcf_filename in vcf_filenames:
                 else:
                     continue
                 end = int(start) + 1
-                samples = [sample.split(':') for sample in fields[9:]]
+                samples = [smp.split(':') for smp in fields[9:]]
                 values = []
                 for sample in samples:
                     d  ={}
@@ -44,7 +46,9 @@ for n in range(nsamples):
     sample_name = 's' + '{:02d}'.format(n+1)
     output_filename = 'PAR-CLIP_signal_' + sample_name + '.bg'
     with open(output_filename, 'w') as output_file:
-        output_file.write('track type=bedGraph name=' + sample_name + ' description=' + sample_name + ' color=0,100,200 altColor=200,100,0\n')
+        output_file.write('track type=bedGraph name=' + \
+sample_name + ' description=' + sample_name + \
+' color=0,100,200 altColor=200,100,0\n')
         count = 0
         for result in results:
             value = result[n+3]

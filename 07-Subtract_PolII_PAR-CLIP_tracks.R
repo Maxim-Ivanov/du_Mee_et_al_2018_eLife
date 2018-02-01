@@ -23,7 +23,8 @@ writeDeltaTrack <- function(gr1, gr2, fname, round.precision=3) {
   delta_rle <- round(aa_rle - neg_rle, round.precision)
   delta <- bindAsGRanges(score = delta_rle)
   con <- gzfile(fname, "w")
-  writeLines("track type=bedGraph color=0,0,0, altColor=128,128,128", con)
+  writeLines("track type=bedGraph color=0,0,0, \
+altColor=128,128,128", con)
   export.bedGraph(delta, con)
   close(con)
 }

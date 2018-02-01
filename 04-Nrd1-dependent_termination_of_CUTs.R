@@ -29,8 +29,10 @@ bw_filenames_rev <- list.files(".", pattern="rev.bw$")
 
 # Read the content of stranded Bigwig files to GRangesList
 # objects:
-bw_files_fw <- batchReadTrackData(bw_filenames_fw, strand="+", seqinfo=seqinfo(Scerevisiae))
-bw_files_rev <- batchReadTrackData(bw_filenames_rev, strand="-", seqinfo=seqinfo(Scerevisiae))
+bw_files_fw <- batchReadTrackData(bw_filenames_fw, strand="+", \
+seqinfo=seqinfo(Scerevisiae))
+bw_files_rev <- batchReadTrackData(bw_filenames_rev, \
+strand="-", seqinfo=seqinfo(Scerevisiae))
 
 # Combine stranded Bigwig files corresponding to the same sample:
 bw_files <- GRangesList()
@@ -61,7 +63,7 @@ readthrough_AA <- norm_gaps_AA / norm_cuts_AA
 nrd1_dependency <- readthrough_AA / readthrough_wt
 
 # Save the results in a Tab-delimited file:
-output_df <- cbind(as.data.frame(cuts_cov), as.data.frame(gaps_cov), as.data.frame(nrd1_dependency))
-write.table(output_df, "Nrd1_dependency_of_CUTs.txt", sep="\t", quote=F)
-
-
+output_df <- cbind(as.data.frame(cuts_cov), \
+as.data.frame(gaps_cov), as.data.frame(nrd1_dependency))
+write.table(output_df, "Nrd1_dependency_of_CUTs.txt", \
+sep="\t", quote=F)
